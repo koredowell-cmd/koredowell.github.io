@@ -290,7 +290,7 @@ body.theme-fade.fade-in {
 @media (max-width: 600px) {
   #game-area {
     width: 90%;
-    height: 320px;
+    height: 400px;
   }
 }
 
@@ -322,6 +322,12 @@ body.theme-fade.fade-in {
   transition: transform 0.1s;
 }
 
+.bug {
+  position: absolute;
+  font-size: 30px;
+  cursor: pointer;
+  transition: transform 0.1s, top 0.3s ease, left 0.3s ease;
+}
 .bug:active {
   transform: scale(0.8);
 }
@@ -546,6 +552,9 @@ body.theme-fade.fade-in {
   let gameActive = false;
   let timer;
 
+  // 🎵 Create a splat sound
+  const splatSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_4f5582550b.mp3");
+
   startBtn.addEventListener("click", () => {
     if (gameActive) return;
     gameActive = true;
@@ -559,27 +568,38 @@ body.theme-fade.fade-in {
 
     setTimeout(() => {
       endGame();
-    }, 60000); // 60 seconds
+    }, 30000);
   });
 
   function createBug() {
     const bug = document.createElement("div");
     bug.textContent = "🪳";
     bug.classList.add("bug");
-    bug.style.top = Math.random() * 270 + "px";
-    bug.style.left = Math.random() * 270 + "px";
-
-    bug.addEventListener("click", () => {
-      score++;
-      scoreDisplay.textContent = `Score: ${score}`;
-      bug.remove();
-    });
-
+    bug.style.top = Math.random() * 350 + "px";
+    bug.style.left = Math.random() * 350 + "px";
     gameArea.appendChild(bug);
 
+    // 🌀 Make bug move a bit before disappearing
+    const moveInterval = setInterval(() => {
+      bug.style.top = Math.random() * 350 + "px";
+      bug.style.left = Math.random() * 350 + "px";
+    }, 400);
+
+    // 🧨 When clicked
+    bug.addEventListener("click", () => {
+      score++;
+      splatSound.currentTime = 0;
+      splatSound.play();
+      scoreDisplay.textContent = `Score: ${score}`;
+      bug.remove();
+      clearInterval(moveInterval);
+    });
+
+    // ⏰ Auto-remove bug after 1.5s
     setTimeout(() => {
       bug.remove();
-    }, 1000);
+      clearInterval(moveInterval);
+    }, 1500);
   }
 
   function endGame() {
