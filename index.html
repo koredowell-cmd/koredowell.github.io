@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title> Dowell Kore | Student at UPSA</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -248,6 +247,90 @@ body.dark-mode .weather-box {
   color: #fff;
 }
 
+/* Smooth theme transition */
+body, .social-button, .weather-box {
+  transition: background-color 0.6s ease, color 0.6s ease, box-shadow 0.6s ease;
+}
+
+/* Optional fancy fade for the entire page */
+body.theme-fade {
+  transition: background-color 0.8s ease, color 0.8s ease;
+  opacity: 0;
+}
+
+body.theme-fade.fade-in {
+  opacity: 1;
+}
+#game-section {
+  text-align: center;
+  margin-top: 50px;
+}
+
+#game-area {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 20px auto;
+  background: #f1f1f1;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.bug {
+  position: absolute;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.bug:active {
+  transform: scale(0.8);
+}
+@media (max-width: 600px) {
+  #game-area {
+    width: 90%;
+    height: 250px;
+  }
+}
+
+#game-section {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+}
+
+#game-area {
+  position: relative;
+  width: 90%;
+  max-width: 320px;
+  height: 300px;
+  margin: 0 auto;
+  background: #f1f1f1;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bug {
+  position: absolute;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.bug:active {
+  transform: scale(0.8);
+}
+
+@media (max-width: 600px) {
+  #game-area {
+    height: 250px;
+  }
+}
   </style>
 </head>
 <body>
@@ -306,6 +389,14 @@ body.dark-mode .weather-box {
         <i class="fab fa-snapchat-ghost"></i>
       </a>
     </div>
+
+    <section id="game-section">
+  <h2>🐞 Catch the Bug!</h2>
+  <p>Click as many bugs as you can in <strong>60 seconds</strong> to prove your dev skills 😎</p>
+  <button id="start-game">Start Game</button>
+  <div id="game-area"></div>
+  <p id="score">Score: 0</p>
+</section>
 
     <footer>
       <p>📧 koredowell300@gmail.com</p>
@@ -413,25 +504,91 @@ body.dark-mode .weather-box {
   const themeToggle = document.getElementById("theme-toggle");
   const currentTheme = localStorage.getItem("theme");
 
+  // Apply saved theme
   if (currentTheme === "dark") {
     document.body.classList.add("dark-mode");
     themeToggle.textContent = "☀️";
   }
 
+  // Add fade-in effect when theme changes
   themeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    let theme = "light";
+    document.body.classList.add("theme-fade");
+    document.body.classList.remove("fade-in");
 
-    if (document.body.classList.contains("dark-mode")) {
-      theme = "dark";
-      themeToggle.textContent = "☀️";
-    } else {
-      themeToggle.textContent = "🌙";
-    }
+    setTimeout(() => {
+      document.body.classList.toggle("dark-mode");
+      let theme = "light";
 
-    localStorage.setItem("theme", theme);
+      if (document.body.classList.contains("dark-mode")) {
+        theme = "dark";
+        themeToggle.textContent = "☀️";
+      } else {
+        themeToggle.textContent = "🌙";
+      }
+
+      localStorage.setItem("theme", theme);
+
+      document.body.classList.add("fade-in");
+    }, 100);
   });
-</script>
 
+  // Initial fade-in when page loads
+  window.addEventListener("load", () => {
+    document.body.classList.add("fade-in");
+  });
+
+</script>
+<script>
+  const startBtn = document.getElementById("start-game");
+  const gameArea = document.getElementById("game-area");
+  const scoreDisplay = document.getElementById("score");
+  let score = 0;
+  let gameActive = false;
+  let timer;
+
+  startBtn.addEventListener("click", () => {
+    if (gameActive) return;
+    gameActive = true;
+    score = 0;
+    scoreDisplay.textContent = "Score: 0";
+    startBtn.disabled = true;
+
+    timer = setInterval(() => {
+      createBug();
+    }, 800);
+
+    setTimeout(() => {
+      endGame();
+    }, 60000); // 60 seconds
+  });
+
+  function createBug() {
+    const bug = document.createElement("div");
+    bug.textContent = "🪳";
+    bug.classList.add("bug");
+    bug.style.top = Math.random() * 270 + "px";
+    bug.style.left = Math.random() * 270 + "px";
+
+    bug.addEventListener("click", () => {
+      score++;
+      scoreDisplay.textContent = `Score: ${score}`;
+      bug.remove();
+    });
+
+    gameArea.appendChild(bug);
+
+    setTimeout(() => {
+      bug.remove();
+    }, 1000);
+  }
+
+  function endGame() {
+    gameActive = false;
+    clearInterval(timer);
+    gameArea.innerHTML = "";
+    startBtn.disabled = false;
+    alert(`Time’s up! You squashed ${score} bugs 🐞🔥`);
+  }
+</script>
 </body>
 </html>
