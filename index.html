@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Dowell Kore | Student at UPSA</title>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #00595f;
+      color: #ffc400;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+
+    .container {
+      text-align: center;
+      max-width: 700px;
+      padding: 40px 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1.2s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    
+    .profile-pic {
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      margin-bottom: 30px;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: popIn 1s ease forwards 0.4s;
+    }
+
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin: 0;
+      font-weight: 700;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 0.8s;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #fcf9f9;
+      margin-top: 8px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1s;
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #ffffff;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1.2s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin-top: 40px;
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards 1.6s;
+    }
+
+    .btn {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+      font-size: 1.8rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: all 0.25s ease-in-out;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+    }
+
+    .whatsapp {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+    }
+
+    .linkedin {
+      background: linear-gradient(135deg, #0077b5, #004f7a);
+    }
+
+    .instagram {
+      background: linear-gradient(135deg, #e4405f, #f77737);
+    }
+
+    .snapchat {
+      background: linear-gradient(135deg, #fffc00, #ffe600);
+      color: #222;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #ffffff;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1.5s ease forwards 2s;
+    }
+
+    footer p {
+      margin: 4px 0;
+    }
+
+    @media (max-width: 600px) {
+      .btn {
+        width: 80px;
+        height: 80px;
+        font-size: 1.5rem;
+      }
+    }
+    .music-box {
+  background: rgb(3, 247, 15);
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 40px;
+  text-align: center;
+  animation: fadeIn 1s ease forwards 1.6s;
+}
+
+.music-box h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.quote-box {
+  background: rgb(50, 13, 153);
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 40px;
+  text-align: center;
+  animation: fadeIn 1s ease forwards 1.8s;
+}
+
+.quote-box h3 {
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+#quote {
+  font-style: italic;
+  color: #fffbfb;
+}
+
+#quote {
+  font-style: italic;
+  color: #ffffff;
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src=d6492f567b6ae5ecd1c22eedaf87364f.jpg alt="Profile Picture" class="profile-pic" />
+    <h1>Dowell Kore</h1>
+    <h2>Student at UPSA</h2>
+
+    <p>
+      Hey there! I’m an IT student at the University of Professional Studies, Accra, diving into the world of web development.
+      I love learning how to code, design clean websites, and bring creative ideas to life online.
+    </p>
+
+    <!-- 🌤️ Weather Widget -->
+<div id="weather" class="weather-box">
+  <h3>🌤️ Current Weather</h3>
+  <p id="weather-info">Loading weather...</p>
+</div>
+
+<!-- 🎵 Music Player -->
+<div class="music-box">
+  <h3>🎧 Now Playing</h3>
+  <iframe 
+    style="border-radius:12px" 
+    src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" 
+    width="100%" 
+    height="152" 
+    frameBorder="0" 
+    allowfullscreen="" 
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+    loading="lazy">
+  </iframe>
+</div>
+
+<!-- 💬 Random Quote -->
+<div class="quote-box">
+  <h3>💡 Quote of the Moment</h3>
+  <p id="quote">Loading quote...</p>
+</div>
+
+
+    <div class="buttons">
+      <a href="https://wa.me/qr/3NKZRBWXNENXO1" class="btn whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="https://www.linkedin.com/" class="btn linkedin" target="_blank">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="https://www.instagram.com/dowellisking_?igsh=MTd6eWpzc3RocDhpMg==" class="btn instagram" target="_blank">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.snapchat.com/add/dowellisking?share_id=GmQ5wNHRw70&locale=en-GB" class="btn snapchat" target="_blank">
+        <i class="fab fa-snapchat-ghost"></i>
+      </a>
+    </div>
+
+    <footer>
+      <p>📧 koredowell300@gmail.com</p>
+      <p>© 2025 KING. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+  async function getWeather(latitude, longitude) {
+    const weatherInfo = document.getElementById('weather-info');
+
+    try {
+      const response = await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+      );
+      const data = await response.json();
+      const weather = data.current_weather;
+
+      if (!weather) {
+        weatherInfo.textContent = "Weather data unavailable 😕";
+        return;
+      }
+
+      const temp = weather.temperature;
+      const wind = weather.windspeed;
+      const weatherCode = weather.weathercode;
+
+      let condition = "Clear Skies";
+      if (weatherCode >= 1 && weatherCode <= 3) condition = "Partly Cloudy";
+      else if (weatherCode >= 45 && weatherCode <= 48) condition = "Foggy";
+      else if (weatherCode >= 51 && weatherCode <= 67) condition = "Rainy";
+      else if (weatherCode >= 71 && weatherCode <= 77) condition = "Snowy";
+      else if (weatherCode >= 80) condition = "Showers";
+
+      weatherInfo.textContent = `${temp}°C, ${condition}, Wind ${wind} km/h`;
+    } catch (error) {
+      console.error("Error fetching weather:", error);
+      weatherInfo.textContent = "Unable to fetch weather 😕";
+    }
+  }
+
+  function detectLocation() {
+    const weatherInfo = document.getElementById('weather-info');
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          getWeather(lat, lon);
+        },
+        () => {
+          weatherInfo.textContent = "Location access denied 😕 Showing Accra weather instead.";
+          getWeather(5.56, -0.20); // fallback to Accra
+        }
+      );
+    } else {
+      weatherInfo.textContent = "Geolocation not supported 😕 Showing Accra weather.";
+      getWeather(5.56, -0.20);
+    }
+  }
+
+  window.addEventListener("load", detectLocation);
+</script>
+
+</script>
+
+</script>
+
+  <script>
+  const quotes = [
+    "Code is like humor. When you have to explain it, it’s bad. — Cory House",
+    "The best error message is the one that never shows up. — Thomas Fuchs",
+    "Talk is cheap. Show me the code. — Linus Torvalds",
+    "First, solve the problem. Then, write the code. — John Johnson",
+    "Programs must be written for people to read, and only incidentally for machines to execute. — Harold Abelson",
+    "Experience is the name everyone gives to their mistakes. — Oscar Wilde",
+    "Any fool can write code that a computer can understand. Good programmers write code that humans can understand. — Martin Fowler",
+    "The function of good software is to make the complex appear simple. — Grady Booch"
+  ];
+
+  const quoteElement = document.getElementById("quote");
+
+  function fadeQuote(newQuote) {
+    quoteElement.style.opacity = 0; // fade out
+    setTimeout(() => {
+      quoteElement.textContent = newQuote;
+      quoteElement.style.opacity = 1; // fade in
+    }, 800); // wait for fade-out to finish
+  }
+
+  function showRandomQuote() {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    fadeQuote(randomQuote);
+  }
+
+  // Show one immediately
+  showRandomQuote();
+
+  // Change quote every 10 seconds
+  setInterval(showRandomQuote, 10000);
+</script>
+
+</body>
+</html>
