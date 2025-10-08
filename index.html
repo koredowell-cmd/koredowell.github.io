@@ -261,43 +261,25 @@ body.theme-fade {
 body.theme-fade.fade-in {
   opacity: 1;
 }
-#game-section {
-  text-align: center;
-  margin-top: 50px;
-}
-
-#game-area {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 20px auto;
-  background: #f1f1f1;
-  border: 2px solid #ccc;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.bug {
-  position: absolute;
-  font-size: 30px;
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-
-.bug:active {
-  transform: scale(0.8);
-}
-@media (max-width: 600px) {
-  #game-area {
-    width: 90%;
-    height: 400px;
-  }
-}
 
 #game-section {
   text-align: center;
-  margin-top: 40px;
-  padding: 20px;
+  margin: 60px auto;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #fff7f0, #ffe0b5);
+  border-radius: 16px;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+#game-section h2 {
+  font-size: 2rem;
+  color: #ff8c00;
+  margin-bottom: 10px;
+}
+
+#game-section p {
+  color: #555;
 }
 
 #game-area {
@@ -305,9 +287,9 @@ body.theme-fade.fade-in {
   width: 95%;
   max-width: 400px;
   height: 400px;
-  margin: 0 auto;
-  background: #f1f1f1;
-  border: 2px solid #ccc;
+  margin: 25px auto;
+  background: #fff;
+  border: 3px solid #ffb347;
   border-radius: 16px;
   overflow: hidden;
   display: flex;
@@ -317,24 +299,44 @@ body.theme-fade.fade-in {
 
 .bug {
   position: absolute;
-  font-size: 24px;
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-
-.bug {
-  position: absolute;
-  font-size: 30px;
+  font-size: 32px;
   cursor: pointer;
   transition: transform 0.1s, top 0.3s ease, left 0.3s ease;
 }
+
 .bug:active {
   transform: scale(0.8);
 }
 
+#start-game {
+  background: #ff8c00;
+  border: none;
+  padding: 10px 20px;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.2s;
+}
+
+#start-game:hover {
+  background: #ff6a00;
+  transform: scale(1.05);
+}
+
+.game-stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 0;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 📱 Responsive */
 @media (max-width: 600px) {
   #game-area {
-    height: 250px;
+    width: 90%;
+    height: 320px;
   }
 }
   </style>
@@ -398,10 +400,15 @@ body.theme-fade.fade-in {
 
     <section id="game-section">
   <h2>🐞 Catch the Bug!</h2>
-  <p>Click as many bugs as you can in <strong>60 seconds</strong> to prove your dev skills 😎</p>
-  <button id="start-game">Start Game</button>
+  <p>Click as many bugs as you can in <strong>60 seconds</strong>!</p>
+
+  <div class="game-stats">
+    <p id="score">Score: 0</p>
+    <p id="highscore">🏆 High Score: 0</p>
+  </div>
+
+  <button id="start-game">🎮 Start Game</button>
   <div id="game-area"></div>
-  <p id="score">Score: 0</p>
 </section>
 
     <footer>
@@ -544,15 +551,21 @@ body.theme-fade.fade-in {
   });
 
 </script>
+
 <script>
   const startBtn = document.getElementById("start-game");
   const gameArea = document.getElementById("game-area");
   const scoreDisplay = document.getElementById("score");
+  const highScoreDisplay = document.getElementById("highscore");
+
   let score = 0;
+  let highScore = localStorage.getItem("highscore") || 0;
   let gameActive = false;
   let timer;
 
-  // 🎵 Create a splat sound
+  // Update high score display
+  highScoreDisplay.textContent = `🏆 High Score: ${highScore}`;
+
   const splatSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_4f5582550b.mp3");
 
   startBtn.addEventListener("click", () => {
@@ -579,13 +592,11 @@ body.theme-fade.fade-in {
     bug.style.left = Math.random() * 350 + "px";
     gameArea.appendChild(bug);
 
-    // 🌀 Make bug move a bit before disappearing
     const moveInterval = setInterval(() => {
       bug.style.top = Math.random() * 350 + "px";
       bug.style.left = Math.random() * 350 + "px";
     }, 400);
 
-    // 🧨 When clicked
     bug.addEventListener("click", () => {
       score++;
       splatSound.currentTime = 0;
@@ -595,7 +606,6 @@ body.theme-fade.fade-in {
       clearInterval(moveInterval);
     });
 
-    // ⏰ Auto-remove bug after 1.5s
     setTimeout(() => {
       bug.remove();
       clearInterval(moveInterval);
@@ -607,7 +617,15 @@ body.theme-fade.fade-in {
     clearInterval(timer);
     gameArea.innerHTML = "";
     startBtn.disabled = false;
-    alert(`Time’s up! You squashed ${score} bugs 🐞🔥`);
+
+    if (score > highScore) {
+      highScore = score;
+      localStorage.setItem("highscore", highScore);
+      highScoreDisplay.textContent = `🏆 High Score: ${highScore}`;
+      alert(`🔥 New High Score! You squashed ${score} bugs!`);
+    } else {
+      alert(`Time’s up! You squashed ${score} bugs 🐞`);
+    }
   }
 </script>
 </body>
